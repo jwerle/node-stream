@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>node-stream</title>
+    <script type="text/javascript" src="build.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="node">
+    </div>
+    <div id="pipe">
+    </div>
+    <script type="text/javascript" charset="utf-8">
+      var node = document.getElementById('node');
+      var pipe = document.getElementById('pipe');
+      var NodeStream = require('node-stream');
+      var assert = require('timoxley-assert')
+      var nstream = NodeStream(node);
+      var pstream = NodeStream(pipe);
+      var interval = null;
+      var count = 10;
+      var i = 0;
+
+      nstream.pipe(pstream);
+
+      interval = setInterval(function () {
+        var d = data();
+
+        nstream.once('data', function (chunk) {
+          assert(d == chunk);
+        });
+
+        nstream.write(d);
+        assert(node.innerHTML == pipe.innerHTML);
+
+        if (++i == count) {
+          nstream.on('end', function () {
+            assert(node.innerHTML == pipe.innerHTML);
+            console.log('ok!');
+          });
+
+          nstream.write(null);
+
+          clearInterval(interval);
+        }
+      }, 500);
+
+      function data () {
+        return Math.random().toString('16').slice(2);
+      }
+    </script>
+  </body>
+
+</html>

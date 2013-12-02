@@ -1,0 +1,17 @@
+{
+  "name": "node-stream",
+  "repo": "jwerle/node-stream",
+  "description": "DOM Node's as streams",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "juliangruber/through": "*",
+    "timoxley/assert": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
